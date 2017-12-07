@@ -12,7 +12,7 @@ module.exports={
         bcrypt.compare(req.body.password,response[0].password).then((compare)=>{
           if(compare){
             const token=jwt.sign({id:response[0]._id},process.env.SECRET_TOKEN);
-            res.send({status:true,msg:token,user:response[0]});
+            res.send({status:true,msg:token});
           }else{
             res.send({status:false,msg:"Pastikan email & password yang dimasukan benar!"});
           }

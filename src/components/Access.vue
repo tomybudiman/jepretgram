@@ -39,7 +39,6 @@ export default {
         }).then(function ({data}) {
           if (data.status) {
             this.resetForm()
-            localStorage.setItem('userid_lightgram', data.user._id)
             localStorage.setItem('token_lightgram', data.msg)
             this.$router.push('/')
           } else {
