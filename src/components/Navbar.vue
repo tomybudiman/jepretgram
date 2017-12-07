@@ -20,8 +20,8 @@
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account <span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><router-link to="#">Login</router-link></li>
-                <li><router-link to="#">Register</router-link></li>
+                <li><router-link to="/access">Login</router-link></li>
+                <li><router-link to="/access">Register</router-link></li>
               </ul>
             </li>
           </ul>

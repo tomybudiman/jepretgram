@@ -68,6 +68,7 @@ export default {
         }).then(function ({data}) {
           if (data.status) {
             this.resetForm()
+            console.log(data.msg)
             this.$store.commit('addNewPost', data.msg)
           } else {
             alert(data.msg)

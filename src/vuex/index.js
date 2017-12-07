@@ -4,7 +4,7 @@ import http from 'axios'
 
 Vue.use(Vuex)
 const axios=http.create({
-  baseURL: 'http://localhost:3032/'
+  baseURL: 'http://54.213.226.247:3032/'
 })
 
 const store=new Vuex.Store({

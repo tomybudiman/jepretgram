@@ -8,7 +8,7 @@ import store from './vuex'
 
 Vue.config.productionTip = false
 Vue.prototype.$axios = http.create({
-  baseURL: 'http://localhost:3032/'
+  baseURL: 'http://54.213.226.247:3032/'
 })
 
 /* eslint-disable no-new */
