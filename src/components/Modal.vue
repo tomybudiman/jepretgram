@@ -8,7 +8,6 @@
             <h4 class="modal-title">Modal Header</h4>
           </div>
           <div class="modal-body">
-            <input type="file">
             <span class="input-label">URL</span>
             <input type="text" v-model="newPost.image">
             <span class="input-label">Caption</span>
@@ -39,7 +38,7 @@ export default {
     newPostSubmit () {
       var token = localStorage.getItem('token_lightgram')
       if (this.newPost.image !== '' && this.newPost.caption !== '' && token != null) {
-        this.$axios.post('post/new', {
+        this.$axios.post('post', {
           image: this.newPost.image,
           caption: this.newPost.caption
         }, {
@@ -49,6 +48,7 @@ export default {
         }).then(function ({data}) {
           if (data.status) {
             this.resetForm()
+            this.$store.commit('addNewPost', data.msg)
           } else {
             alert(data.msg)
           }

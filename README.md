@@ -30,3 +30,4 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 | http://localhost/post | GET | Get All Post |
 | http://localhost/post/:id | PUT | Edit Post Caption |
 | http://localhost/post/:id | DELETE | Delete Post |
+| http://localhost/post/:id | POST | Add Reaction |
