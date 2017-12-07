@@ -9,9 +9,25 @@ const axios=http.create({
 
 const store=new Vuex.Store({
   state:{
-    posts:[]
+    posts:[],
+    userId:null,
+    edit:{
+      id:'',
+      caption:''
+    }
   },
   mutations:{
+    setUserId(state,token){
+      axios.get('user/getid',{
+        headers:{
+          token:token
+        }
+      }).then(function({data}){
+        state.userId=data.msg;
+      }).catch(function(err){
+        console.log(err);
+      });
+    },
     setAllPost(state){
       axios.get('post').then(function({data}){
         state.posts=data.msg;
@@ -21,6 +37,17 @@ const store=new Vuex.Store({
     },
     addNewPost(state,post){
       state.posts.unshift(post);
+    },
+    removePost(state,postId){
+      state.posts.forEach(function(post,i){
+        if(post._id == postId){
+          state.posts.splice(i,1)
+        }
+      })
+    },
+    setEditModal(state,data){
+      state.edit.id=data._id;
+      state.edit.caption=data.caption;
     }
   }
 });

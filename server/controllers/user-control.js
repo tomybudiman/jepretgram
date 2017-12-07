@@ -43,5 +43,19 @@ module.exports={
     }).catch((err)=>{
       res.send({status:false,msg:err});
     });
+  },
+  getid:(req,res)=>{
+    const userId=jwt.verify(req.headers.token,process.env.SECRET_TOKEN).id;
+    User.count({
+      "_id":ObjectId(userId)
+    }).then((count)=>{
+      if(count == 1){
+        res.send({status:true,msg:userId});
+      }else{
+        res.send({status:false,msg:"User not found!"});
+      }
+    }).catch((err)=>{
+      res.send({status:false,msg:err});
+    });
   }
 };

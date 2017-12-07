@@ -5,7 +5,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Modal Header</h4>
+            <h4 class="modal-title">New Post</h4>
           </div>
           <div class="modal-body">
             <span class="input-label">URL</span>
@@ -15,6 +15,23 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-primary" data-dismiss="modal" @click="newPostSubmit">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="editPost" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Edit Caption</h4>
+          </div>
+          <div class="modal-body">
+            <span class="input-label">Caption</span>
+            <input type="text" v-model="editPostCaption">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal" @click="updateCaption">Submit</button>
           </div>
         </div>
       </div>
@@ -29,9 +46,12 @@ export default {
         image: '',
         caption: ''
       },
-      editPost: {
-        caption: ''
-      }
+      editCaption: ''
+    }
+  },
+  computed: {
+    editPostCaption () {
+      return this.$store.state.edit.caption
     }
   },
   methods: {
@@ -59,6 +79,19 @@ export default {
         alert('Abort! Abort Mission!')
         this.resetForm()
       }
+    },
+    updateCaption () {
+      this.$axios.put(`post/${this.$store.state.edit.id}`, {
+        caption: this.$store.state.edit.caption
+      }).then(function ({data}) {
+        if (data.status) {
+          this.$store.commit('setAllPost')
+        } else {
+          alert(data.msg)
+        }
+      }.bind(this)).catch(function (err) {
+        console.log(err)
+      })
     },
     resetForm () {
       this.newPost.image = ''

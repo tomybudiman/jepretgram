@@ -30,10 +30,47 @@ module.exports={
       if(response == null){
         res.send({status:false,msg:"Post not found!"});
       }else{
-        response.likes.map((like)=>{
-          console.log("like");
-        });
+        const check=response.likes.filter((like)=>{return like == userId});
+        if(check.length > 0){
+          response.likes.splice(response.likes.indexOf(userId),1);
+          Post.updateOne({
+            "_id":ObjectId(req.params.id)
+          },{
+            likes:response.likes
+          }).then((like)=>{
+            res.send({status:true,msg:like});
+          });
+        }else{
+          response.likes.push(userId);
+          Post.updateOne({
+            "_id":ObjectId(req.params.id)
+          },{
+            likes:response.likes
+          }).then((like)=>{
+            res.send({status:true,msg:like});
+          });
+        }
       }
+    }).catch((err)=>{
+      res.send({status:false,msg:err});
+    });
+  },
+  update:(req,res)=>{
+    Post.updateOne({
+      "_id":ObjectId(req.params.id)
+    },{
+      caption:req.body.caption
+    }).then((response)=>{
+      res.send({status:true,msg:response});
+    }).catch((err)=>{
+      res.send({status:false,msg:err});
+    });
+  },
+  delete:(req,res)=>{
+    Post.deleteOne({
+      "_id":ObjectId(req.params.id)
+    }).then((response)=>{
+      res.send({status:true,msg:response});
     }).catch((err)=>{
       res.send({status:false,msg:err});
     });
